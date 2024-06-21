@@ -30,7 +30,7 @@ const Modal = ({isOpen, onClose}:ModalProps) => {
 
     return (
         <div className="w-screen h-screen fixed flex items-end justify-end inset-0 m-auto">
-            <div className="w-1/3 h-screen max-w-[30rem] rounded-lg bg-gray-100 z-20 p-10">
+            <div className="w-1/3 h-screen max-w-[30rem] rounded-lg bg-gray-100 z-20 p-10 all: unset; @apply">
                 <div className="flex w-full h-full">
                     <button className="w-[3rem] h-full mr-3" onClick={onClose}>
                         <div className="w-full h-full flex justify-center items-center hover:translate-x-3 hover:scale-110 duration-300">
