@@ -20,9 +20,9 @@ const StoreItem = ({name, cost, src, id}:Props) => {
     const Auth = useAuthContext();
     const navigate = useNavigate();
 
-    function onClick(isLoggedIn: boolean, id: number) {
+    function onClick(isLoggedIn: boolean, id: number, name: string) {
         if (isLoggedIn) {
-            Cart.addItemWithId(id); // add item to cart
+            Cart.addItemWithId(id, name, src); // add item to cart
         } else {
             navigate("/login"); // redirect the user to login
         }
@@ -37,7 +37,7 @@ const StoreItem = ({name, cost, src, id}:Props) => {
                 <span className="text-sm font-semibold leading-6 tracking-wide text-gray-600">CAD</span>
             </p>
             <img src={src} className="hidden mt-5 rounded-3xl object-cover min-w-5 min-h-5 mb-5 lg:block" />
-            <RedirectButton onClick={() => onClick(Auth.isLoggedIn, id)}>Add</RedirectButton>
+            <RedirectButton onClick={() => onClick(Auth.isLoggedIn, id, name)}>Add</RedirectButton>
         </div>
     );
 }

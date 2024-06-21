@@ -4,6 +4,8 @@ import NavigationButton from './NavigationButton';
 
 // context
 import { useAuthContext } from '../context/AuthContext';
+import { useCartContext } from '../context/CartContext';
+
 import RedirectButton from './RedirectButton';
 import Modal from './Modal';
 
@@ -27,7 +29,6 @@ const NavigationBar = () => {
 
     // cart button
     const onClick = () => {
-        console.log("work")
         open();
     }
 

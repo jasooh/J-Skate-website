@@ -3,15 +3,17 @@ import { ReactNode, createContext, useContext, useState } from "react";
 // cart data
 interface CartItem {
     id: number,
-    quantity: number
+    name: string,
+    quantity: number,
+    src: string
 }
 
 interface CartProps {
-    getItemId: (id: number) => number,
-    addItemWithId: (id: number) => void,
+    getItemQuantity: (id: number) => number,
+    addItemWithId: (id: number, name: string, src: string) => void,
     subtractItemWithId: (id: number) => void,
     removeItemWithId: (id: number) => void,
-    getCart: () => void
+    getCart: () => CartItem[]
 };
 
 const Cart = createContext({} as CartProps);
@@ -20,11 +22,11 @@ const CartProvider = ({children}:{children: ReactNode}) => {
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
     // methods for cart
-    const getItemId = (id: number) => {
+    const getItemQuantity = (id: number) => {
         return cartItems.find(item => item.id === id)?.quantity || 0
     }
 
-    const addItemWithId = (id: number) => {
+    const addItemWithId = (id: number, name: string, src: string) => {
         setCartItems(currentCart => {
             if (currentCart.find(item => item.id === id)) {
                 return currentCart.map(item => {
@@ -38,7 +40,7 @@ const CartProvider = ({children}:{children: ReactNode}) => {
                 })
             } else {
                 // create a new item if it was not found in the array
-                return [...currentCart, { id, quantity: 1 }]
+                return [...currentCart, { id, name: name, quantity: 1, src: src}]
             };
         });
     }
@@ -47,8 +49,8 @@ const CartProvider = ({children}:{children: ReactNode}) => {
         setCartItems(currentCart => {
             if (currentCart.find(item => item.id === id)) {
                 return currentCart.map(item => {
-                    if (item.id === id && item.quantity > 0) {
-                        return { ...item, quantity: item.quantity - 1 };
+                    if (item.id === id) {
+                        return { ...item, name: item.name, quantity: item.quantity - 1 };
                     } else {
                         return item;
                     };
@@ -69,7 +71,7 @@ const CartProvider = ({children}:{children: ReactNode}) => {
     const getCart = () => {return cartItems;}
 
     return (
-        <Cart.Provider value={{ getItemId, addItemWithId, subtractItemWithId, removeItemWithId, getCart }}>
+        <Cart.Provider value={{ getItemQuantity, addItemWithId, subtractItemWithId, removeItemWithId, getCart }}>
             { children }
         </Cart.Provider>
     )

@@ -25,7 +25,7 @@ const Hero = () => {
                     <h1 className="mb-5 text-xl text-indigo-600 font-bold">
                         Rethink the way you travel.
                     </h1>
-                    <h1 className="text-3xl xl:text-6xl xl: max-w-xl font-bold text-black tracking-tight ">
+                    <h1 className="text-3xl xl:text-6xl xl: max-w-xl font-bold text-black tracking-tight">
                         Electric skateboards to enhance the way you ride.
                     </h1>
                     <p className="mt-10 text-lg leading-8 text-gray-600 max-w-md mb-5">
