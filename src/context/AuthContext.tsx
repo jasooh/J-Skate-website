@@ -1,5 +1,5 @@
 // context to determine if user is logged in or not
-import { createContext, useContext, ReactNode, useState } from 'react';
+import { createContext, useContext, ReactNode, useState, Dispatch, SetStateAction } from 'react';
 import { CognitoUser, AuthenticationDetails, CognitoUserSession } from 'amazon-cognito-identity-js';
 import UserPool from '../userpool/UserPool';
 
@@ -7,7 +7,7 @@ interface AuthType {
     authenticate: (email: string, password: string) => Promise<String>,
     getSession: () => Promise<CognitoUserSession | undefined>,
     isLoggedIn: boolean,
-    setIsLoggedIn: (auth: boolean) => void,
+    setIsLoggedIn: Dispatch<SetStateAction<boolean>>,
     logout: () => void
 };
 

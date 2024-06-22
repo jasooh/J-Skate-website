@@ -1,5 +1,6 @@
 // hooks
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 // components
 import RedirectButton from './RedirectButton';
@@ -37,7 +38,7 @@ const Modal = ({isOpen, onClose}:ModalProps) => {
                             <VscChevronRight size="2rem" />
                         </div>
                     </button>
-                    <div className="flex flex-col  w-full h-full">
+                    <div className="flex flex-col w-full h-full">
                         <div>
                             <span className="text-2xl font-bold text-indigo-600">Your cart</span>
                             <p className="mb-8 text-xs">Overview</p>
@@ -45,9 +46,14 @@ const Modal = ({isOpen, onClose}:ModalProps) => {
                         <div className="w-full h-full flex flex-col gap-5">
                             {currentCart.map(item => {
                                 return (
-                                    <CartItem name={item.name} quantity={item.quantity} src={item.src} id={item.id}/>
+                                    <CartItem name={item.name} quantity={item.quantity} src={item.src} id={item.id} price={item.price}/>
                                 )
                             })}
+                        </div>
+                        <hr className="mb-2 h-px border-t-0 bg-transparent bg-gradient-to-r from-transparent via-neutral-500 to-transparent opacity-100 dark:via-neutral-400" />
+                        <div className="w-full h-[5rem]">
+                            <label className="font-bold text-xl">SUBTOTAL: <span className="text-indigo-600">${Cart.subTotal}.00</span></label>
+                            <p className="text-sm">Total calculated at checkout.</p>
                         </div>
                         <RedirectButton onClick={onClick}>Checkout</RedirectButton>
                     </div>

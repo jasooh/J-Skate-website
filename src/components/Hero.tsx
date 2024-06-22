@@ -52,8 +52,8 @@ const Hero = () => {
                     Own a skateboard and want an upgrade? We can do that for you. Or buy a new one - <strong>your choice</strong>.
                 </p>
                 <div className="w-[90%] lg:w-1/2 h-min flex flex-col md:flex-row justify-evenly items-center ring-1 ring-gray-200 rounded-3xl p-10 gap-5">
-                    <StoreItem name="Augment Skateboard" cost="$250" src={AugmentImage} id={1}/>
-                    <StoreItem name="Custom Skateboard" cost="$500" src={NewImage} id={2}/>
+                    <StoreItem name="Augment Skateboard" text="$250" src={AugmentImage} id={1} price={250}/>
+                    <StoreItem name="Custom Skateboard" text="$500" src={NewImage} id={2} price={500}/>
                 </div>
             </div>
         </>

@@ -1,37 +1,42 @@
-import { ReactNode, createContext, useContext, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction, createContext, useContext, useState } from "react";
 
 // cart data
 interface CartItem {
     id: number,
     name: string,
     quantity: number,
-    src: string
+    src: string,
+    price: number
 }
 
 interface CartProps {
     getItemQuantity: (id: number) => number,
-    addItemWithId: (id: number, name: string, src: string) => void,
-    subtractItemWithId: (id: number) => void,
+    addItemWithId: (id: number, name: string, src: string, price: number) => void,
+    subtractItemWithId: (id: number, price: number) => void,
     removeItemWithId: (id: number) => void,
-    getCart: () => CartItem[]
+    getCart: () => CartItem[],
+    subTotal: number,
+    setSubTotal: Dispatch<SetStateAction<number>>
 };
 
 const Cart = createContext({} as CartProps);
 
 const CartProvider = ({children}:{children: ReactNode}) => {
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
+    const [subTotal, setSubTotal] = useState<number>(0);
 
     // methods for cart
     const getItemQuantity = (id: number) => {
         return cartItems.find(item => item.id === id)?.quantity || 0
     }
 
-    const addItemWithId = (id: number, name: string, src: string) => {
+    const addItemWithId = (id: number, name: string, src: string, price: number) => {
+        setSubTotal(currentTotal => {return currentTotal + price});
         setCartItems(currentCart => {
             if (currentCart.find(item => item.id === id)) {
                 return currentCart.map(item => {
                     if (item.id === id) {
-                        // increase the value of existing items
+                        // increase the value of existing items and adjust price value in the cart object
                         return { ...item, quantity: item.quantity + 1 }; 
                     } else {
                         // add any items that are not matching the id back to this new array
@@ -40,12 +45,13 @@ const CartProvider = ({children}:{children: ReactNode}) => {
                 })
             } else {
                 // create a new item if it was not found in the array
-                return [...currentCart, { id, name: name, quantity: 1, src: src}]
+                return [...currentCart, { id, name: name, quantity: 1, src: src, price: price}]
             };
         });
     }
 
-    const subtractItemWithId = (id: number) => {
+    const subtractItemWithId = (id: number, price: number) => {
+        setSubTotal(currentTotal => {return currentTotal - price});
         setCartItems(currentCart => {
             if (currentCart.find(item => item.id === id)) {
                 return currentCart.map(item => {
@@ -71,7 +77,7 @@ const CartProvider = ({children}:{children: ReactNode}) => {
     const getCart = () => {return cartItems;}
 
     return (
-        <Cart.Provider value={{ getItemQuantity, addItemWithId, subtractItemWithId, removeItemWithId, getCart }}>
+        <Cart.Provider value={{ getItemQuantity, addItemWithId, subtractItemWithId, removeItemWithId, getCart, subTotal, setSubTotal }}>
             { children }
         </Cart.Provider>
     )

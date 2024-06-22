@@ -8,7 +8,6 @@ import { useAuthContext } from "../context/AuthContext";
 // components
 import RedirectButton from "./RedirectButton";
 
-
 const Account = () => {
     const [userEmail, setUserEmail] = useState(undefined);
     const Auth = useAuthContext();

@@ -13,6 +13,7 @@ import Hero from './components/Hero';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Account from './components/Account';
+import Checkout from "./components/Checkout";
 
 // context
 import { AuthProvider } from './context/AuthContext';
@@ -28,6 +29,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/account" element={<AccountPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
           </Routes>
         </CartProvider>
       </AuthProvider>
@@ -63,9 +65,19 @@ function SignupPage() {
 function AccountPage() {
   return (
     <Background>
+      <NavigationBar />
       <Account />
     </Background>
   );
+}
+
+function CheckoutPage() {
+  return (
+    <Background>
+      <NavigationBar />
+      <Checkout />
+    </Background>
+  )
 }
 
 export default App;
