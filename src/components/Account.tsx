@@ -1,19 +1,22 @@
 // hooks
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useDataAPI from "../hooks/useDataAPI";
 
 // context
 import { useAuthContext } from "../context/AuthContext";
 
 // components
 import RedirectButton from "./RedirectButton";
-import { CognitoUserSession } from "amazon-cognito-identity-js";
+import OrderItem from "./OrderItem";
 
 const Account = () => {
     const [userEmail, setUserEmail] = useState(undefined);
-    const [userAddress, setUserAddress] = useState(undefined);
     const Auth = useAuthContext();
     const navigate = useNavigate()
+
+    const data = useDataAPI("abuyuanjustin@gmail.com");
+    console.log(data)
 
     const onClick = () => {
       Auth.setIsLoggedIn(false);
@@ -28,8 +31,6 @@ const Account = () => {
         const user = Auth.getSession();
         user.then((session) => {
           setUserEmail(session?.getIdToken().payload.email);
-          setUserAddress(session?.getIdToken().payload.address.formatted);
-          console.log(session);
         });
       }
     }, []);
@@ -42,9 +43,9 @@ const Account = () => {
             <p className="mb-5 text-xs">Welcome to your account page.</p>
           </div>
           <div className="w-full h-full">
-            <form className="flex flex-row gap-3 items-end">
-              <label className="text-lg font-bold">Address:</label>
-              <label>{userAddress}</label>
+            <form className="flex flex-col gap-3">
+              <label className="text-lg font-bold">Current Orders</label>
+              <OrderItem />
             </form>
           </div>
           <RedirectButton onClick={onClick}>Log out</RedirectButton>
