@@ -1,18 +1,22 @@
-// Components
+// components
 import { MutableRefObject, useRef } from 'react';
 import RedirectButton from './RedirectButton';
 import StoreItem from './StoreItem';
 
-// Images
+// images
 import photo1 from '../img/skateboarder1.jpeg';
 import photo2 from '../img/skateboarder2.jpg';
 import photo3 from '../img/skateboarder3.jpeg';
 
 import AugmentImage from '../img/augment.png';
 import NewImage from '../img/new.png';
+
+// context
 import { useCartContext } from '../context/CartContext';
+import { useAuthContext } from '../context/AuthContext';
 
 const Hero = () => {
+    const Auth = useAuthContext();
     const myRef = useRef() as MutableRefObject<HTMLDivElement>;
     const onClick = () => myRef.current.scrollIntoView();
     const Cart = useCartContext();

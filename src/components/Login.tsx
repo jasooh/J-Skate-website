@@ -18,7 +18,6 @@ const Login = () => {
       .then(data => {
         Auth.setIsLoggedIn(true);
         navigate("/"); // navigate to home page
-        console.log("Logged in")
       })
       .catch(error => {
         console.error("Error: ", error)

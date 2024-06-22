@@ -10,6 +10,7 @@ import { VscChevronRight } from 'react-icons/vsc';
 
 // context 
 import { useCartContext } from '../context/CartContext';
+import { useAuthContext } from '../context/AuthContext';
 import CartItem from './CartItem';
 
 interface ModalProps {
@@ -18,13 +19,18 @@ interface ModalProps {
 }
 
 const Modal = ({isOpen, onClose}:ModalProps) => {
-    // checkout button
-    const navigate = useNavigate();
-    const onClick = () => {navigate("/checkout")}
-
     // context
     const Cart = useCartContext();
     const currentCart = Cart.getCart();
+    const user = useAuthContext();
+
+    // checkout button
+    const navigate = useNavigate();
+    const onClick = () => {
+        if (user.isLoggedIn) {
+            navigate("/checkout")
+        }
+    }
 
     // modal logic
     if (isOpen == false) return null;

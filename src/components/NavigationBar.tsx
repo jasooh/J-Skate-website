@@ -37,7 +37,7 @@ const NavigationBar = () => {
             <div className="flex gap-14 pl-10">
                 {NavButtons.map(button => {
                     return (
-                        <NavigationButton link={button.link}>{button.text}</NavigationButton>
+                        <NavigationButton key={button.text} link={button.link}>{button.text}</NavigationButton>
                     );
                 })}
             </div>

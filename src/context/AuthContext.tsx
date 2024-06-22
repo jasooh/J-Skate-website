@@ -29,7 +29,7 @@ const AuthProvider = ({children}:{children: ReactNode}) => {
                 });
             } else {
                 reject();
-            }
+            };
         });
     };
     
